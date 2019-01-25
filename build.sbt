@@ -9,6 +9,7 @@ lazy val core = (project in file ("."))
     version := "0.0.1-SNAPSHOT",
     resolvers ++= Seq(
       Resolver.sonatypeRepo("releases"),
+      Resolver.sonatypeRepo("snapshots"),
       "Spark Packages Repo" at "https://dl.bintray.com/spark-packages/maven/"
     ),
     assemblySettings,
@@ -16,11 +17,12 @@ lazy val core = (project in file ("."))
       "org.apache.spark" %% "spark-sql" % sparkVersion % Provided,
       "org.apache.hadoop" % "hadoop-common" % hadoopVersion,
       "org.apache.hadoop" % "hadoop-mapreduce-client-core" % hadoopVersion,
-      "org.deeplearning4j" %% "dl4j-spark" % "1.0.0-beta3_spark_2" excludeAll(
+      "org.deeplearning4j" %% "dl4j-spark" % "1.0.0_spark_2-SNAPSHOT" excludeAll (
         ExclusionRule(organization = "org.apache.spark")
       ),
-      "org.nd4j" % "nd4j-native-platform" % "1.0.0-beta3"
-    )
+      "org.nd4j" % "nd4j-native-platform" % "1.0.0-SNAPSHOT",
+    ),
+    updateOptions := updateOptions.value.withLatestSnapshots(false)
   )
 
 lazy val assemblySettings = Seq(
